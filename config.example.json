@@ -1,0 +1,9 @@
+{
+  "DBConnectionString": "postgres://user:password@localhost:5432/bfp?sslmode=disable",
+  "Port": 9999,
+  "Production": false,
+  "LogLevel": "trace",
+  "Hosts": [
+    "example.com"
+  ]
+}
