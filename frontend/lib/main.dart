@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'dart:js_util';
 
+import 'package:demhack3_web/fingerprint_loader.dart' as FingerPrint;
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
 
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter() {
-    promiseToFuture(js.context.callMethod('getBrowserFingerPrintLibDataPromise')).then((value) => print(value));
+    FingerPrint.getBrowserFingerPrint().then((value) => {print(FingerPrint.stringify(value))});
   }
 
   @override

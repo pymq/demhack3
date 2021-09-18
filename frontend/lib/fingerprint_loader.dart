@@ -1,12 +1,15 @@
+import 'dart:js_util';
 import 'package:js/js.dart';
 
-class FingerPrintLoader {
-  @JS()
-  external getBrowserFingerPrintLibDataPromise();
+@JS()
+external getFPJSLibDataPromise();
 
-  Map getBrowserFingerPrint() {
+@JS("JSON.stringify")
+external String stringify(value, [replacer, space]);
 
-  }
+Future getBrowserFingerPrint() {
+  var promise = getFPJSLibDataPromise();
+  return promiseToFuture(promise);
 }
 
 
