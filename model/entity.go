@@ -52,6 +52,7 @@ type FrontendMetrics struct {
 	Hdr                 interface{}     `json:"hdr"` // TODO
 	Math                Math            `json:"math"`
 	FingerprintJSHash   string          `json:"fingerprintJSHash"`
+	Apps                []DesktopApp    `json:"apps"`
 }
 
 type FontPreferences struct {
@@ -107,4 +108,9 @@ type Math struct {
 	Log1P   float64 `json:"log1p"`
 	Log1PPf float64 `json:"log1pPf"`
 	PowPI   float64 `json:"powPI"`
+}
+
+type DesktopApp struct {
+	App    string `json:"app"`
+	Status bool   `json:"status"`
 }
