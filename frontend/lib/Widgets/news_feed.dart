@@ -12,6 +12,8 @@ class _NewsFeedState extends State<NewsFeed> {
   
   int counter = 0;
   Timer? timer;
+
+  ScrollController controller = ScrollController();
   
   @override
   void initState() {
@@ -24,6 +26,7 @@ class _NewsFeedState extends State<NewsFeed> {
         } else {
           counter++;
         }
+        controller.position.animateTo(counter*1020, duration: Duration(milliseconds: 400), curve: Curves.easeIn);
       });
     });
   }
@@ -59,9 +62,21 @@ class _NewsFeedState extends State<NewsFeed> {
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 20),
-                  child: Container(
+                  child: SizedBox(
                     height: 300,
-                    color: Colors.grey,
+                    width: double.infinity,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      controller: controller,
+                      itemCount: 4,
+                      itemBuilder: (context, i) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                          width: 1000,
+                          height: 300,
+                          color: Colors.grey,
+                        );
+                      }),
                   )
                 )
               ]

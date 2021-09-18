@@ -29,7 +29,7 @@ class _BigGreenBoxState extends State<BigGreenBox> {
       padding: EdgeInsets.symmetric(vertical: 50),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(32),
           color: Color(0xFFC7EDE6),
           boxShadow: [BoxShadow(
             spreadRadius: 0,
@@ -38,9 +38,23 @@ class _BigGreenBoxState extends State<BigGreenBox> {
           )]
         ),
         height: 300,
-        child: Center(
-          child: Text('Ваш уникальный идентификатор: \n' + name, style: Consts.logoTextStyle,),
-        ),
+        child: Stack(
+          children: [
+            Container(
+              margin: EdgeInsets.all(40),
+              alignment: Alignment.topLeft,
+              child: SelectableText('Ваш уникальный идентификатор: \n' + name, style: Consts.logoTextStyle,)
+            ),
+            Container(
+                margin: EdgeInsets.all(40),
+                alignment: Alignment.bottomRight,
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text('Что это значит?', style: Consts.subTextStyle,),
+                )
+            )
+          ],
+        )
       ),
     );
   }

@@ -6,7 +6,8 @@ import 'package:demhack3_web/consts.dart' as Consts;
 class SiteAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      margin: EdgeInsets.all(20),
       height: 70,
       child: Stack(
         children: [

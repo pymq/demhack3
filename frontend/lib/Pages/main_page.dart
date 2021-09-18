@@ -19,20 +19,20 @@ class _MainPageState extends State<MainPage> {
             SiteAppBar(),
             SingleChildScrollView(
                 child: SizedBox(
-                    width: double.infinity,
-                    child: Center(
-                      child: SizedBox(
-                        width: 1000,
-                        child: ListView(
-                          shrinkWrap: true,
-                          children: [
-                            BigGreenBox(BigGreenBoxController()),
-                            SecondBox(),
-                            NewsFeed()
-                          ],
-                        ),
+                  width: double.infinity,
+                  child: Center(
+                    child: SizedBox(
+                      width: 1000,
+                      child: ListView(
+                        shrinkWrap: true,
+                        children: [
+                          BigGreenBox(BigGreenBoxController()),
+                          SecondBox(),
+                          NewsFeed()
+                        ],
                       ),
-                    )
+                    ),
+                  )
                 )
             )
           ],
