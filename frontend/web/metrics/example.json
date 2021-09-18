@@ -15,6 +15,7 @@
     "Monotype Corsiva",
     "Segoe UI Light"
   ],
+  "domBlockers": null,
   "fontPreferences": {
     "default": 149.3125,
     "apple": 149.3125,
@@ -31,10 +32,9 @@
     30,
     0
   ],
+  "osCpu": null,
   "languages": [
-    [
-      "en-US"
-    ]
+    "en-US"
   ],
   "colorDepth": 24,
   "deviceMemory": 8,
@@ -48,6 +48,7 @@
   "localStorage": true,
   "indexedDB": true,
   "openDatabase": true,
+  "cpuClass": null,
   "platform": "Win32",
   "plugins": [
     {
@@ -101,9 +102,12 @@
   ],
   "cookiesEnabled": true,
   "colorGamut": "srgb",
+  "invertedColors": null,
   "forcedColors": false,
   "monochrome": 0,
+  "contrast": null,
   "reducedMotion": false,
+  "hdr": null,
   "math": {
     "acos": 1.4473588658278522,
     "acosh": 709.889355822726,
@@ -129,5 +133,6 @@
     "log1p": 2.3978952727983707,
     "log1pPf": 2.3978952727983707,
     "powPI": 1.9275814160560204e-50
-  }
+  },
+  "fingerprintJSHash": "32fd9eae9436f71146429ede01b224f1"
 }

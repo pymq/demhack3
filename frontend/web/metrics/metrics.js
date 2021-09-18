@@ -1,3 +1,6 @@
+// Dependencies:
+// https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js
+
 const ConsoleSilentMode = true; // убрать комменты
 
 function getMetrics() {
@@ -6,8 +9,24 @@ function getMetrics() {
       let Metrics = {};
       let fingerprintJS = values[0].components;
       Object.keys(fingerprintJS).forEach(function (key) {
-        Metrics[key] = fingerprintJS[key].value;
+        Metrics[key] = fingerprintJS[key].value === undefined ? null : fingerprintJS[key].value;
+        switch (key) {
+          case 'languages': {
+            let languages = [];
+            Metrics[key].forEach(function (langs) {
+              if (Array.isArray(langs)) {
+                langs.forEach(function (lang) {
+                  languages.push(lang);
+                });
+              } else {
+                languages.push(langs);
+              }
+            });
+            Metrics[key] = languages;
+          }
+        }
       });
+      Metrics['fingerprintJSHash'] = values[0].visitorId;
       return Metrics;
     })
   })()
