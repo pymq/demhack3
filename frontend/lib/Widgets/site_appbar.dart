@@ -1,9 +1,26 @@
+import 'dart:convert';
+
+import 'package:demhack3_web/Pages/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:demhack3_web/consts.dart' as Consts;
 
-class SiteAppBar extends StatelessWidget {
+class SiteAppBar extends StatefulWidget {
+  MainPageController mainPageController;
+
+  SiteAppBar(this.mainPageController);
+  @override
+  State<SiteAppBar> createState() => _SiteAppBarState();
+}
+
+class _SiteAppBarState extends State<SiteAppBar> {
+
+
+  void openDialog() async {
+    Navigator.pushNamed(context, '/DebugPage', arguments: {'response': widget.mainPageController.response});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,7 +52,7 @@ class SiteAppBar extends StatelessWidget {
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
                       ),
-                      onPressed: () {},
+                      onPressed: openDialog,
                       child: SvgPicture.asset('assets/fButton.svg', fit: BoxFit.fitHeight,),
                     ),
                   ),
@@ -62,5 +79,4 @@ class SiteAppBar extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SecondBox extends StatelessWidget{
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +28,7 @@ class SecondBox extends StatelessWidget{
                   color: Color(0xF0B225A)
                 )]
                 ),
-                
+
                 child: Column(
                   children: [
                     Padding(

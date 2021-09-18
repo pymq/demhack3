@@ -6,17 +6,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
+
+  MainPageController mainPageController;
+
+  MainPage(this.mainPageController);
+
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
+
   @override
   Widget build(BuildContext context) {
     return Center(
         child: ListView(
           children: [
-            SiteAppBar(),
+            SiteAppBar(widget.mainPageController),
             SingleChildScrollView(
                 child: SizedBox(
                   width: double.infinity,
@@ -38,5 +44,15 @@ class _MainPageState extends State<MainPage> {
           ],
         )
     );
+  }
+}
+
+class MainPageController extends ChangeNotifier {
+  String _response = '';
+
+  String get response => _response;
+  set response(String r) {
+    _response = r;
+    notifyListeners();
   }
 }
