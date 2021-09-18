@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SecondBox extends StatelessWidget{
   @override
@@ -25,6 +26,15 @@ class SecondBox extends StatelessWidget{
                   offset: Offset(0, 12.35),
                   color: Color(0xF0B225A)
                 )]
+                ),
+                
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: SvgPicture.asset('assets/pc_icon.svg', width: 160,),
+                    )
+                  ],
                 ),
               ),
             ),

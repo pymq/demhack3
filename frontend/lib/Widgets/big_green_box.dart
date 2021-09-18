@@ -30,12 +30,16 @@ class _BigGreenBoxState extends State<BigGreenBox> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32),
-          color: Color(0xFFC7EDE6),
-          boxShadow: [BoxShadow(
-            spreadRadius: 0,
-            blurRadius: 20,
-            color: Color(0xFFC7EDE6)
-          )]
+          gradient: LinearGradient(
+              begin: Alignment.bottomRight,
+              end: Alignment.topLeft,
+              colors: [Color(0xFFC7EDE6), Color(0xFFE0F6F2)]
+          ),
+            boxShadow: [BoxShadow(
+              blurRadius: 16,
+              offset: Offset(0,4),
+              color: Color(0xFFC7EDE6)
+            )]
         ),
         height: 300,
         child: Stack(

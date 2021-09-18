@@ -27,10 +27,10 @@ class SiteAppBar extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: 40,
-                  width: 145,
+                  height: 60,
+                  width: 210,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                     child: TextButton(
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,
@@ -42,10 +42,10 @@ class SiteAppBar extends StatelessWidget {
                 ),
                 Container(
                   margin: EdgeInsets.only(right: 50),
-                  height: 40,
-                  width: 40,
+                  height: 60,
+                  width: 60,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                     child: TextButton(
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.zero,

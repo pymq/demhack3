@@ -1,6 +1,7 @@
 import 'package:demhack3_web/Pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:demhack3_web/fingerprint_loader.dart' as FingerPrint;
+import 'package:demhack3_web/server.dart' as Server;
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +34,11 @@ class _MyHomePageState extends State<MyHomePage> {
   
   void initState() {
     super.initState();
-    FingerPrint.getBrowserFingerPrint().then((value) => print(FingerPrint.stringify(value)));
+    FingerPrint.getBrowserFingerPrint().then((value) {
+      var s = FingerPrint.stringify(value);
+      print(s);
+      Server.send(s).then((v) => print(v.body));
+    });
   }
   
   @override
