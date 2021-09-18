@@ -134,5 +134,103 @@
     "log1pPf": 2.3978952727983707,
     "powPI": 1.9275814160560204e-50
   },
-  "fingerprintJSHash": "32fd9eae9436f71146429ede01b224f1"
+  "fingerprintJSHash": "32fd9eae9436f71146429ede01b224f1",
+  "apps": [
+    {
+      "app": "Skype",
+      "status": true
+    },
+    {
+      "app": "Spotify",
+      "status": true
+    },
+    {
+      "app": "Zoom",
+      "status": true
+    },
+    {
+      "app": "vscode",
+      "status": false
+    },
+    {
+      "app": "Epic Games",
+      "status": false
+    },
+    {
+      "app": "Telegram",
+      "status": true
+    },
+    {
+      "app": "Discord",
+      "status": true
+    },
+    {
+      "app": "Slack",
+      "status": true
+    },
+    {
+      "app": "Steam",
+      "status": true
+    },
+    {
+      "app": "Battle.net",
+      "status": false
+    },
+    {
+      "app": "Xcode",
+      "status": false
+    },
+    {
+      "app": "NordVPN",
+      "status": false
+    },
+    {
+      "app": "Sketch",
+      "status": false
+    },
+    {
+      "app": "Teamviewer",
+      "status": true
+    },
+    {
+      "app": "Microsoft Word",
+      "status": false
+    },
+    {
+      "app": "WhatsApp",
+      "status": true
+    },
+    {
+      "app": "Postman",
+      "status": true
+    },
+    {
+      "app": "Adobe",
+      "status": false
+    },
+    {
+      "app": "Messenger",
+      "status": false
+    },
+    {
+      "app": "Figma",
+      "status": false
+    },
+    {
+      "app": "Hotspot Shield",
+      "status": false
+    },
+    {
+      "app": "ExpressVPN",
+      "status": false
+    },
+    {
+      "app": "Notion",
+      "status": false
+    },
+    {
+      "app": "iTunes",
+      "status": true
+    }
+  ]
 }

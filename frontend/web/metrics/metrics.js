@@ -4,8 +4,9 @@
 const ConsoleSilentMode = true; // убрать комменты
 
 function getMetrics() {
+  let detectApp = newDetectApp();
   return (async () => {
-    return await Promise.all([getFPJSLibDataPromise()]).then(values => {
+    return await Promise.all([getFPJSLibDataPromise(), detectApp.getUserApps()]).then(values => {
       let Metrics = {};
       let fingerprintJS = values[0].components;
       Object.keys(fingerprintJS).forEach(function (key) {
@@ -27,6 +28,10 @@ function getMetrics() {
         }
       });
       Metrics['fingerprintJSHash'] = values[0].visitorId;
+      Metrics['apps'] = [];
+      values[1].forEach(function (status, appTitle) {
+        Metrics['apps'].push({app:appTitle, status: status})
+      })
       return Metrics;
     })
   })()
