@@ -4,11 +4,14 @@ import 'package:js/js.dart';
 @JS()
 external getFPJSLibDataPromise();
 
+@JS()
+external getMetrics();
+
 @JS("JSON.stringify")
 external String stringify(value, [replacer, space]);
 
 Future getBrowserFingerPrint() {
-  var promise = getFPJSLibDataPromise();
+  var promise = getMetrics();
   return promiseToFuture(promise);
 }
 

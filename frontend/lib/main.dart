@@ -1,5 +1,6 @@
 import 'dart:js_util';
 
+import 'package:demhack3_web/Pages/main_page.dart';
 import 'package:demhack3_web/fingerprint_loader.dart' as FingerPrint;
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Rubik'
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -38,33 +40,14 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
+    FingerPrint.getBrowserFingerPrint().then((value) => {});
   }
 
-  void _incrementCounter() {
-    FingerPrint.getBrowserFingerPrint().then((value) => {print(FingerPrint.stringify(value))});
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      body: MainPage()
     );
   }
 }
