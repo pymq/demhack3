@@ -51,6 +51,7 @@ func (h *Handler) SetupAPI(cfg *conf.Config) {
 	}
 
 	// Middleware
+	e.Use(middleware.CORS())
 	e.Use(middleware.BodyLimit("4M"))
 	if cfg.Production {
 		e.Pre(middleware.HTTPSNonWWWRedirect())
