@@ -11,6 +11,7 @@ import (
 	"bfp/api"
 	"bfp/conf"
 	"bfp/echologrus"
+	"bfp/model"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -25,6 +26,7 @@ import (
 
 // go get -u github.com/swaggo/swag/cmd/swag
 //go:generate swag init --parseDependency
+//go:generate rm -f docs/swagger.json docs/docs.go
 
 //go:embed static
 var frontendStatic embed.FS
@@ -44,7 +46,12 @@ func main() {
 	}
 	initLogger(cfg.LogLevel)
 
-	handler := api.NewHandler()
+	fpRep, err := model.NewFingerprint(cfg.DBConnectionString)
+	if err != nil {
+		log.Panicf("init db: %v", err)
+	}
+
+	handler := api.NewHandler(fpRep)
 	handler.SetupAPI(cfg)
 	handler.SetupFrontend(FrontendStatic())
 

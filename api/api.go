@@ -10,6 +10,7 @@ import (
 
 	"bfp/conf"
 	"bfp/echologrus"
+	"bfp/model"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -19,11 +20,12 @@ import (
 )
 
 type Handler struct {
-	echo *echo.Echo
+	echo  *echo.Echo
+	fpRep *model.FingerprintRep
 }
 
-func NewHandler() *Handler {
-	return &Handler{}
+func NewHandler(fpRep *model.FingerprintRep) *Handler {
+	return &Handler{fpRep: fpRep}
 }
 
 func (h *Handler) SetupAPI(cfg *conf.Config) {
@@ -67,6 +69,12 @@ func (h *Handler) SetupAPI(cfg *conf.Config) {
 	}
 
 	e.Use(middleware.Gzip())
+
+	// Methods
+	const apiPrefix = "/api/"
+	apiGroup := e.Group(apiPrefix)
+
+	apiGroup.POST("process_fingerprint", h.ProcessFingerprint)
 
 	// Start
 	port := ":" + strconv.Itoa(cfg.Port)
@@ -124,4 +132,8 @@ func (e Error) Error() string {
 
 func ErrorMessage(message string) Error {
 	return Error{Message: message}
+}
+
+func HandleInternalError(c echo.Context, err error) error {
+	return c.JSON(http.StatusInternalServerError, ErrorMessage(err.Error()))
 }

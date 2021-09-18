@@ -1,0 +1,343 @@
+basePath: /api/
+definitions:
+  api.Error:
+    properties:
+      error:
+        type: string
+    type: object
+  api.ProcessFingerprintResponse:
+    properties:
+      fingerprint:
+        $ref: '#/definitions/model.Fingerprint'
+      history:
+        items:
+          $ref: '#/definitions/model.Fingerprint'
+        type: array
+    type: object
+  model.Canvas:
+    properties:
+      geometry:
+        type: string
+      text:
+        type: string
+      winding:
+        type: boolean
+    type: object
+  model.Fingerprint:
+    properties:
+      createdAt:
+        type: string
+      metrics:
+        $ref: '#/definitions/model.Metrics'
+      userId:
+        type: string
+      userIdHuman:
+        description: TODO
+        type: string
+    type: object
+  model.FontPreferences:
+    properties:
+      apple:
+        type: number
+      default:
+        type: number
+      min:
+        type: number
+      mono:
+        type: number
+      sans:
+        type: number
+      serif:
+        type: number
+      system:
+        type: number
+    type: object
+  model.FrontendMetrics:
+    properties:
+      audio:
+        type: number
+      canvas:
+        $ref: '#/definitions/model.Canvas'
+      colorDepth:
+        type: integer
+      colorGamut:
+        type: string
+      contrast:
+        description: TODO
+        type: object
+      cookiesEnabled:
+        type: boolean
+      cpuClass:
+        description: TODO
+        type: object
+      deviceMemory:
+        type: integer
+      domBlockers:
+        description: TODO
+        type: object
+      fingerprintJSHash:
+        type: string
+      fontPreferences:
+        $ref: '#/definitions/model.FontPreferences'
+      fonts:
+        items:
+          type: string
+        type: array
+      forcedColors:
+        type: boolean
+      hardwareConcurrency:
+        type: integer
+      hdr:
+        description: TODO
+        type: object
+      indexedDB:
+        type: boolean
+      invertedColors:
+        description: TODO
+        type: object
+      languages:
+        items:
+          type: string
+        type: array
+      localStorage:
+        type: boolean
+      math:
+        $ref: '#/definitions/model.Math'
+      monochrome:
+        type: integer
+      openDatabase:
+        type: boolean
+      osCpu:
+        description: TODO
+        type: object
+      platform:
+        type: string
+      plugins:
+        items:
+          $ref: '#/definitions/model.Plugins'
+        type: array
+      reducedMotion:
+        type: boolean
+      screenFrame:
+        items:
+          type: integer
+        type: array
+      screenResolution:
+        items:
+          type: integer
+        type: array
+      sessionStorage:
+        type: boolean
+      timezone:
+        type: string
+      touchSupport:
+        $ref: '#/definitions/model.TouchSupport'
+      vendor:
+        type: string
+      vendorFlavors:
+        items:
+          type: string
+        type: array
+    type: object
+  model.Math:
+    properties:
+      acos:
+        type: number
+      acosh:
+        type: number
+      acoshPf:
+        type: number
+      asin:
+        type: number
+      asinh:
+        type: number
+      asinhPf:
+        type: number
+      atan:
+        type: number
+      atanh:
+        type: number
+      atanhPf:
+        type: number
+      cos:
+        type: number
+      cosh:
+        type: number
+      coshPf:
+        type: number
+      exp:
+        type: number
+      expm1:
+        type: number
+      expm1Pf:
+        type: number
+      log1p:
+        type: number
+      log1pPf:
+        type: number
+      powPI:
+        type: number
+      sin:
+        type: number
+      sinh:
+        type: number
+      sinhPf:
+        type: number
+      tan:
+        type: number
+      tanh:
+        type: number
+      tanhPf:
+        type: number
+    type: object
+  model.Metrics:
+    properties:
+      audio:
+        type: number
+      canvas:
+        $ref: '#/definitions/model.Canvas'
+      colorDepth:
+        type: integer
+      colorGamut:
+        type: string
+      contrast:
+        description: TODO
+        type: object
+      cookiesEnabled:
+        type: boolean
+      cpuClass:
+        description: TODO
+        type: object
+      deviceMemory:
+        type: integer
+      domBlockers:
+        description: TODO
+        type: object
+      fingerprintJSHash:
+        type: string
+      fontPreferences:
+        $ref: '#/definitions/model.FontPreferences'
+      fonts:
+        items:
+          type: string
+        type: array
+      forcedColors:
+        type: boolean
+      hardwareConcurrency:
+        type: integer
+      hdr:
+        description: TODO
+        type: object
+      indexedDB:
+        type: boolean
+      invertedColors:
+        description: TODO
+        type: object
+      languages:
+        items:
+          type: string
+        type: array
+      localStorage:
+        type: boolean
+      math:
+        $ref: '#/definitions/model.Math'
+      monochrome:
+        type: integer
+      openDatabase:
+        type: boolean
+      osCpu:
+        description: TODO
+        type: object
+      platform:
+        type: string
+      plugins:
+        items:
+          $ref: '#/definitions/model.Plugins'
+        type: array
+      reducedMotion:
+        type: boolean
+      screenFrame:
+        items:
+          type: integer
+        type: array
+      screenResolution:
+        items:
+          type: integer
+        type: array
+      sessionStorage:
+        type: boolean
+      timezone:
+        type: string
+      touchSupport:
+        $ref: '#/definitions/model.TouchSupport'
+      vendor:
+        type: string
+      vendorFlavors:
+        items:
+          type: string
+        type: array
+    type: object
+  model.MimeTypes:
+    properties:
+      suffixes:
+        type: string
+      type:
+        type: string
+    type: object
+  model.Plugins:
+    properties:
+      description:
+        type: string
+      mimeTypes:
+        items:
+          $ref: '#/definitions/model.MimeTypes'
+        type: array
+      name:
+        type: string
+    type: object
+  model.TouchSupport:
+    properties:
+      maxTouchPoints:
+        type: integer
+      touchEvent:
+        type: boolean
+      touchStart:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  description: BFP API
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: BFP API
+  version: "1.0"
+paths:
+  /process_fingerprint:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Params
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/model.FrontendMetrics'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ProcessFingerprintResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.Error'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.Error'
+      summary: Process fingerprint
+swagger: "2.0"
