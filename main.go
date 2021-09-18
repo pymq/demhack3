@@ -12,6 +12,7 @@ import (
 	"bfp/conf"
 	"bfp/echologrus"
 	"bfp/model"
+	"github.com/oschwald/geoip2-golang"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -46,12 +47,18 @@ func main() {
 	}
 	initLogger(cfg.LogLevel)
 
+	geoDb, err := geoip2.Open("GeoLite2.mmdb")
+	if err != nil {
+		log.Panicf("error opening GeoLite2.mmdb: %v", err)
+	}
+	defer geoDb.Close()
+
 	fpRep, err := model.NewFingerprint(cfg.DBConnectionString)
 	if err != nil {
 		log.Panicf("init db: %v", err)
 	}
 
-	handler := api.NewHandler(fpRep)
+	handler := api.NewHandler(fpRep, geoDb)
 	handler.SetupAPI(cfg)
 	handler.SetupFrontend(FrontendStatic())
 

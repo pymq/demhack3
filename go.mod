@@ -8,6 +8,7 @@ require (
 	github.com/google/uuid v1.3.0
 	github.com/labstack/echo/v4 v4.5.0
 	github.com/labstack/gommon v0.3.0
+	github.com/oschwald/geoip2-golang v1.5.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/vmihailenco/msgpack/v5 v5.3.4 // indirect
 	golang.org/x/crypto v0.0.0-20210711020723-a769d52b0f97

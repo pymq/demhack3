@@ -16,6 +16,29 @@ type Fingerprint struct {
 
 type Metrics struct {
 	FrontendMetrics
+	BackendMetrics
+}
+
+type BackendMetrics struct {
+	IP        string
+	Anonymity Anonymity
+	Location  Location
+}
+
+type Anonymity struct {
+	// if the IP address belongs to any sort of anonymous network
+	IsAnonymous    bool `json:"isAnonymous"`
+	IsTorExitNode  bool `json:"isTorExitNode"`
+	IsAnonymousVPN bool `json:"isAnonymousVPN"`
+	IsPublicProxy  bool `json:"isPublicProxy"`
+}
+
+type Location struct {
+	Country    string  `json:"country"`
+	CountryISO string  `json:"countryISO"`
+	City       string  `json:"city"`
+	Lat        float64 `json:"lat"`
+	Long       float64 `json:"long"`
 }
 
 type FrontendMetrics struct {

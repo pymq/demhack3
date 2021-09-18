@@ -1,6 +1,7 @@
 package api
 
 import (
+	"net"
 	"net/http"
 	"sort"
 	"time"
@@ -8,6 +9,7 @@ import (
 	"bfp/model"
 	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
+	"github.com/oschwald/geoip2-golang"
 )
 
 type ProcessFingerprintResponse struct {
@@ -45,10 +47,6 @@ func (h *Handler) ProcessFingerprint(c echo.Context) (err error) {
 		resp.Fingerprint = model.Fingerprint{
 			UserId:      fps[0].UserId,
 			UserIdHuman: fps[0].UserIdHuman,
-			Metrics: model.Metrics{
-				FrontendMetrics: req,
-			},
-			CreatedAt: time.Now(),
 		}
 	} else {
 		resp.History = make([]model.Fingerprint, 0)
@@ -60,11 +58,13 @@ func (h *Handler) ProcessFingerprint(c echo.Context) (err error) {
 		resp.Fingerprint = model.Fingerprint{
 			UserId:      generateUserId(),
 			UserIdHuman: userIdHuman,
-			Metrics: model.Metrics{
-				FrontendMetrics: req,
-			},
-			CreatedAt: time.Now(),
 		}
+	}
+
+	resp.Fingerprint.CreatedAt = time.Now()
+	resp.Fingerprint.Metrics = model.Metrics{
+		FrontendMetrics: req,
+		BackendMetrics:  h.enrichBackendMetrics(c, req),
 	}
 
 	sort.Slice(resp.History, func(i, j int) bool {
@@ -79,6 +79,38 @@ func (h *Handler) ProcessFingerprint(c echo.Context) (err error) {
 	return c.JSON(http.StatusOK, resp)
 }
 
+func (h *Handler) enrichBackendMetrics(c echo.Context, front model.FrontendMetrics) model.BackendMetrics {
+	ipStr := c.RealIP()
+	ipNet := net.ParseIP(ipStr)
+	backend := model.BackendMetrics{
+		IP: ipStr,
+	}
+
+	anonymous, err := h.geoDb.AnonymousIP(ipNet)
+	if err == nil {
+		backend.Anonymity.IsAnonymous = anonymous.IsAnonymous
+		backend.Anonymity.IsTorExitNode = anonymous.IsTorExitNode
+		backend.Anonymity.IsAnonymousVPN = anonymous.IsAnonymousVPN
+		backend.Anonymity.IsPublicProxy = anonymous.IsPublicProxy
+	}
+
+	city, err := h.geoDb.City(ipNet)
+	if err == nil {
+		backend.Location.CountryISO = findCountryISO(city)
+		backend.Location.Lat = city.Location.Latitude
+		backend.Location.Long = city.Location.Longitude
+		backend.Location.Country = findLocalizedName(city.Country.Names)
+		backend.Location.City = findLocalizedName(city.City.Names)
+	}
+
+	country, err := h.geoDb.Country(ipNet)
+	if err == nil && backend.Location.Country == "" {
+		backend.Location.Country = findLocalizedName(country.Country.Names)
+	}
+
+	return backend
+}
+
 func generateUserId() string {
 	return uuid.New().String()
 }
@@ -86,4 +118,33 @@ func generateUserId() string {
 func generateUserIdHuman() (string, error) {
 	// TODO: implement real human user id
 	return generateUserId(), nil
+}
+
+func findCountryISO(record *geoip2.City) string {
+	if record.Country.IsoCode != "" {
+		return record.Country.IsoCode
+	}
+	if record.RegisteredCountry.IsoCode != "" {
+		return record.RegisteredCountry.IsoCode
+	}
+	if record.RepresentedCountry.IsoCode != "" {
+		return record.RepresentedCountry.IsoCode
+	}
+	return ""
+}
+
+func findLocalizedName(record map[string]string) string {
+	keys := []string{"ru", "ru-RU", "en", "en-US"}
+	for _, name := range keys {
+		val, ok := record[name]
+		if ok {
+			return val
+		}
+	}
+	// take first
+	for _, val := range record {
+		return val
+	}
+
+	return ""
 }

@@ -14,6 +14,18 @@ definitions:
           $ref: '#/definitions/model.Fingerprint'
         type: array
     type: object
+  model.Anonymity:
+    properties:
+      isAnonymous:
+        description: if the IP address belongs to any sort of anonymous network
+        type: boolean
+      isAnonymousVPN:
+        type: boolean
+      isPublicProxy:
+        type: boolean
+      isTorExitNode:
+        type: boolean
+    type: object
   model.Canvas:
     properties:
       geometry:
@@ -21,6 +33,13 @@ definitions:
       text:
         type: string
       winding:
+        type: boolean
+    type: object
+  model.DesktopApp:
+    properties:
+      app:
+        type: string
+      status:
         type: boolean
     type: object
   model.Fingerprint:
@@ -54,6 +73,10 @@ definitions:
     type: object
   model.FrontendMetrics:
     properties:
+      apps:
+        items:
+          $ref: '#/definitions/model.DesktopApp'
+        type: array
       audio:
         type: number
       canvas:
@@ -139,6 +162,19 @@ definitions:
           type: string
         type: array
     type: object
+  model.Location:
+    properties:
+      city:
+        type: string
+      country:
+        type: string
+      countryISO:
+        type: string
+      lat:
+        type: number
+      long:
+        type: number
+    type: object
   model.Math:
     properties:
       acos:
@@ -192,6 +228,12 @@ definitions:
     type: object
   model.Metrics:
     properties:
+      anonymity:
+        $ref: '#/definitions/model.Anonymity'
+      apps:
+        items:
+          $ref: '#/definitions/model.DesktopApp'
+        type: array
       audio:
         type: number
       canvas:
@@ -233,12 +275,16 @@ definitions:
       invertedColors:
         description: TODO
         type: object
+      ip:
+        type: string
       languages:
         items:
           type: string
         type: array
       localStorage:
         type: boolean
+      location:
+        $ref: '#/definitions/model.Location'
       math:
         $ref: '#/definitions/model.Math'
       monochrome:

@@ -15,6 +15,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	echolog "github.com/labstack/gommon/log"
+	"github.com/oschwald/geoip2-golang"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/crypto/acme/autocert"
 )
@@ -22,10 +23,11 @@ import (
 type Handler struct {
 	echo  *echo.Echo
 	fpRep *model.FingerprintRep
+	geoDb *geoip2.Reader
 }
 
-func NewHandler(fpRep *model.FingerprintRep) *Handler {
-	return &Handler{fpRep: fpRep}
+func NewHandler(fpRep *model.FingerprintRep, geoDb *geoip2.Reader) *Handler {
+	return &Handler{fpRep: fpRep, geoDb: geoDb}
 }
 
 func (h *Handler) SetupAPI(cfg *conf.Config) {
@@ -41,6 +43,7 @@ func (h *Handler) SetupAPI(cfg *conf.Config) {
 	e.StdLogger = stdLog.New(log.StandardLogger().Out, "", 0)
 	e.HideBanner = true
 	e.HidePort = true
+	e.IPExtractor = echo.ExtractIPDirect()
 	configureHttpServer(e.Server)
 	configureHttpServer(e.TLSServer)
 
