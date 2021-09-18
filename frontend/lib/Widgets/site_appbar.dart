@@ -39,7 +39,8 @@ class SiteAppBar extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
+                Container(
+                  margin: EdgeInsets.only(right: 50),
                   height: 40,
                   width: 40,
                   child: ClipRRect(
