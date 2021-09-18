@@ -1,5 +1,7 @@
 // Глобальная проблема - не обработаны ошибки, если что-то пойдет не так никто не узнает)
 
+PreventAppDetection = false; // Для дебага, ничего обрабатываться не будет
+
 function debugDetectApp() {
   let startTime = new Date().getTime() / 1000;
   newDetectApp().getUserApps().then(() => {
@@ -121,19 +123,15 @@ function newDetectApp() {
   DetectApp.browserFamily = BrowserFamily.Chromium;
   DetectApp.results = new Map();
 
-  const noWebRTC = +!('RTCDataChannel' in window)
-  const noPointerEvent = +!('PointerEvent' in window)
-  const noAudioBuffer = +!('AudioBuffer' in window)
-  const noWebGLSync = +!('noWebGLSync' in window)
+  let isFirefox = typeof InstallTrigger !== 'undefined';
 
-  if (noWebRTC + noPointerEvent + noAudioBuffer + noWebGLSync >= 3) {
-    DetectApp.browserFamily = BrowserFamily.TorBrowser
-  }
+  let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) {
+    return p.toString() === "[object SafariRemoteNotification]";
+  })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
 
-  // Убрать заглушку
-  if (false) {
+  if (isSafari) {
     DetectApp.browserFamily = BrowserFamily.Safari
-  } else if (false) {
+  } else if (isFirefox) {
     DetectApp.browserFamily = BrowserFamily.Firefox
   } else {
     DetectApp.browserFamily = BrowserFamily.Chromium
@@ -150,6 +148,13 @@ let DetectApp = {
       createAdditionalWindow()
     }
 
+    if (handler === null || PreventAppDetection) {
+      console.log("can't create new window");
+      return new Promise((resolve => {
+        resolve(DetectApp.results)
+      }))
+    }
+
     let callDetectNext = function (resolve) {
       detectNext().then((result) => {
         // result is unused
@@ -163,7 +168,8 @@ let DetectApp = {
         }
       })
     };
-    return new Promise( (resolve => {
+
+    return new Promise((resolve => {
       callDetectNext(resolve);
     }))
   },
@@ -226,9 +232,6 @@ function initWindowMessaging() {
   window.onmessage = (event) => {
     const data = event.data
 
-    // Update the current handler pointer after each incoming message
-    // This might be useful if the main page was reloaded so we will still have an access
-    // to the popup instance
     if (data.crossBrowserDemo) {
       handler = event.source
     }
@@ -309,6 +312,41 @@ async function detectNext() {
   }
 }
 
+async function detectSafari() {
+  onMessage('redirected', async () => {
+    await wait(55)
+    const handler = getAdditionalWindow()
+
+    try {
+      // same origin policy
+      handler.document.location.hostname
+
+      saveDetectionResult(true)
+      sendWindowMessage('force_reload')
+
+      document.location.reload()
+    } catch (e) {
+      saveDetectionResult(false)
+      handler.location.replace('/popup')
+    }
+  })
+
+  onMessage('force_reload', async () => {
+    await wait(55)
+    document.location.reload()
+  })
+
+  await invokeWithFrame('popup', async () => {
+    document.location.replace(getCurrentApplicationUrl())
+    sendWindowMessage('redirected')
+
+    await wait(200)
+    document.location.reload()
+  })
+
+  return true;
+}
+
 async function detectChrome() {
   await invokeWithFrame('main', async () => {
     const handler = getAdditionalWindow()
@@ -346,6 +384,51 @@ async function detectChrome() {
 
     handler.location.replace('about:blank')
 
+    await waitForLocation('about:blank')
+  })
+
+  return isPopupWindow();
+}
+
+
+const firefoxDetectionWaitingDefault = 200
+let firefoxDetectionWaiting = firefoxDetectionWaitingDefault
+
+async function detectFirefox() {
+  await invokeWithFrame('main', async () => {
+    if (getCurrentIndex() === 0) {
+      await wait(300)
+    }
+
+    const handler = getAdditionalWindow()
+    const start = performance.now()
+
+    const unsubscribe = listenOnce('load', () => {
+      const delta = performance.now() - start
+
+      if (firefoxDetectionWaiting === firefoxDetectionWaitingDefault) {
+        firefoxDetectionWaiting = delta + 15 // emperical
+      }
+    })
+
+    const iframe = document.createElement('iframe')
+    iframe.src = getCurrentApplicationUrl()
+    iframe.style.opacity = '0'
+    handler.document.body.appendChild(iframe)
+
+    await wait(firefoxDetectionWaiting)
+    unsubscribe()
+
+    if (iframe.contentDocument) {
+      saveDetectionResult(true)
+    } else {
+      saveDetectionResult(false)
+    }
+
+    handler.location.replace('/blank')
+    await waitForLocation(document.location.origin + '/blank')
+
+    handler.location.replace('about:blank')
     await waitForLocation('about:blank')
   })
 
