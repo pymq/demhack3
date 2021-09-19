@@ -1,4 +1,5 @@
 import 'package:demhack3_web/Widgets/big_green_box.dart';
+import 'package:demhack3_web/Widgets/history.dart';
 import 'package:demhack3_web/Widgets/news_feed.dart';
 import 'package:demhack3_web/Widgets/second_box.dart';
 import 'package:demhack3_web/Widgets/site_appbar.dart';
@@ -42,6 +43,7 @@ class _MainPageState extends State<MainPage> {
                               shrinkWrap: true,
                               children: [
                                 BigGreenBox(widget.mainPageController),
+                                History(widget.mainPageController),
                                 SecondBox(widget.mainPageController),
                                 TableWidget(widget.mainPageController),
                                 NewsFeed()

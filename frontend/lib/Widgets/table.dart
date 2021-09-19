@@ -25,8 +25,8 @@ class _TableWidgetState extends State<TableWidget> {
       if (v1.keys.elementAt(i) != 'canvas' && v1.values.elementAt(i) != null) {
         t.add(TableRow(
             children: [
-              Text(v1.keys.elementAt(i).toString()),
-              Text(v1.values.elementAt(i).toString()),
+              SelectableText(v1.keys.elementAt(i).toString()),
+              SelectableText(v1.values.elementAt(i).toString()),
             ]
         ));
       }
@@ -66,19 +66,21 @@ class _TableWidgetState extends State<TableWidget> {
                     physics: NeverScrollableScrollPhysics(),
                   ),
                 ),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 400),
-                  height: double.infinity,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  decoration: isActivated? const BoxDecoration() : const BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.center,
-                        colors: [Color(0xFFFFFFFF), Color(0x70FFFFFF)]
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: AnimatedContainer(
+                    duration: Duration(milliseconds: 400),
+                    height: 100,
+                    width: double.infinity,
+                    decoration: isActivated? const BoxDecoration() : const BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.center,
+                          colors: [Color(0xFFFFFFFF), Color(0x70FFFFFF)]
+                      ),
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),

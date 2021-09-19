@@ -1,4 +1,5 @@
 import 'package:demhack3_web/Pages/main_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:demhack3_web/consts.dart' as Consts;
 
@@ -16,6 +17,11 @@ class _BigGreenBoxState extends State<BigGreenBox> {
   String name = '';
   String bname = '';
   bool isH = false;
+
+
+  List<TableRow> keys = [
+    TableRow()
+  ];
 
   void initState() {
     super.initState();
@@ -54,7 +60,7 @@ class _BigGreenBoxState extends State<BigGreenBox> {
                 children: [
                   Text('Ваш уникальный идентификатор: \n', style: Consts.logoTextStyle,),
                   SelectableText(name, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 30, color: isH? Colors.red: Colors.green),),
-                  SelectableText(bname, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18, color: Colors.grey),)
+                  SelectableText(bname, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18, color: Colors.grey),),
                 ],
               )
             ),
