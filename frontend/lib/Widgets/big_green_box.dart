@@ -33,7 +33,7 @@ class _BigGreenBoxState extends State<BigGreenBox> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 50),
+      padding: EdgeInsets.only(top: 40, bottom: 40),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(32),

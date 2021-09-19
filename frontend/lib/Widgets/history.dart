@@ -2,6 +2,7 @@ import 'package:demhack3_web/Pages/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:demhack3_web/consts.dart' as Consts;
+import 'package:flutter/material.dart';
 
 class History extends StatefulWidget {
 
@@ -15,6 +16,8 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
 
+
+  bool isH = false;
 
   List months = [
     'Январь', 'Февраль', 'Март','Апрель','Май','Июнь','Июль','Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
@@ -35,6 +38,7 @@ class _HistoryState extends State<History> {
       });
     });
 
+    isH = widget.controller.rawResponse['History'].length != 0;
   }
 
 
@@ -47,9 +51,9 @@ class _HistoryState extends State<History> {
       a = DateTime.parse(v1[i]['CreatedAt']);
       t.add(TableRow(
           children: [
-            Text(a.year.toString() + ' г.'),
-            Text(months[a.month-1] + ', ' + a.day.toString()),
-            Text((a.hour+3).toString() +':' + (a.minute.toString().length > 1? a.minute.toString() : '0'+a.minute.toString())),
+            Text(a.year.toString() + ' г.', style: TextStyle(fontSize: 18,)),
+            Text(months[a.month-1] + ', ' + a.day.toString(), style: TextStyle(fontSize: 18,)),
+            Text((a.hour+3).toString() +':' + (a.minute.toString().length > 1? a.minute.toString() : '0'+a.minute.toString()), style: TextStyle(fontSize: 18,)),
           ]
       ));
     }
@@ -60,23 +64,23 @@ class _HistoryState extends State<History> {
   @override
   Widget build(BuildContext context) {
     return  Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.only(bottom: 40),
       child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(32),
               gradient: LinearGradient(
                   begin: Alignment.bottomRight,
                   end: Alignment.topLeft,
-                  colors: [Color(0xFFC7EDE6), Color(0xFFE0F6F2)]
+                  colors: [Color(0xFFEDC7C7), Color(0xFFF6E0E0)]
               ),
               boxShadow: [BoxShadow(
                   blurRadius: 16,
                   offset: Offset(0,4),
-                  color: Color(0xFFC7EDE6)
+                  color: Color(0xFFEDC7C7)
               )]
           ),
-          height: 330,
-          child: Container(
+          height: 370,
+          child: isH? Container(
               margin: EdgeInsets.all(40),
               alignment: Alignment.topLeft,
               child: Column(
@@ -89,7 +93,7 @@ class _HistoryState extends State<History> {
                   )
                 ],
               )
-          ),
+          ): Text('Сеансов нет', style: Consts.logoTextStyle,),
       ),
     );
   }

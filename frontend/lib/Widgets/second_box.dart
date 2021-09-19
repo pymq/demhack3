@@ -46,12 +46,14 @@ class _SecondBoxState extends State<SecondBox> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 20),
+                      padding: EdgeInsets.only(top: 10, bottom: 40),
                       child: SvgPicture.asset('assets/pc_icon.svg', width: 160,),
                     ),
                     ListTile(
                       leading: SvgPicture.asset('assets/memory_icon.svg'),
-                      title: Text(widget.mainPageController.rawAnalysis['deviceMemory'].toString() + ' Гб'),
+                      title: Text((widget.mainPageController.rawAnalysis['deviceMemory'].toString() != 'null'?
+                      widget.mainPageController.rawAnalysis['deviceMemory'].toString():'Заблокировано браузером'
+                      )+ ' Гб'),
                     ),
                     ListTile(
                       leading: SvgPicture.asset('assets/screen_icon.svg'),
@@ -59,7 +61,7 @@ class _SecondBoxState extends State<SecondBox> {
                     ),
                     ListTile(
                       leading: SvgPicture.asset('assets/videocard_icon.svg'),
-                      title: Text('агде...'),
+                      title: Text('Intel inc. Intel graphics webGL Driver'),
                     ),
                   ],
                 ),
