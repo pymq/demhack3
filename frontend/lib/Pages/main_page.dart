@@ -2,6 +2,7 @@ import 'package:demhack3_web/Widgets/big_green_box.dart';
 import 'package:demhack3_web/Widgets/news_feed.dart';
 import 'package:demhack3_web/Widgets/second_box.dart';
 import 'package:demhack3_web/Widgets/site_appbar.dart';
+import 'package:demhack3_web/Widgets/table.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -42,6 +43,7 @@ class _MainPageState extends State<MainPage> {
                               children: [
                                 BigGreenBox(widget.mainPageController),
                                 SecondBox(widget.mainPageController),
+                                TableWidget(widget.mainPageController),
                                 NewsFeed()
                               ],
                             ),

@@ -44,6 +44,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  String text = 'Сканируем систему';
   
   void initState() {
     super.initState();
@@ -56,7 +58,14 @@ class _MyHomePageState extends State<MyHomePage> {
         badPractice.rawResponse = json.decode(v.body);
         badPractice.rawAnalysis = json.decode(s);
 
-        Navigator.pushReplacementNamed(context, '/MainPage');
+        if (badPractice.rawResponse['error'] != null) {
+          print('SERVER 400 PROBLEM');
+          setState(() {
+            text = 'Сервер не хочет с нами работать :(';
+          });
+        } else {
+          Navigator.pushReplacementNamed(context, '/MainPage');
+        }
       });
     });
   }
@@ -64,6 +73,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingPage();
+    return Scaffold(
+      body: Container(
+        height: double.infinity,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(text),
+              )
+            ],
+          )
+        ),
+      )
+    );
   }
 }
