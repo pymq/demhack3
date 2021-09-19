@@ -1,8 +1,19 @@
+import 'package:demhack3_web/Pages/main_page.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class SecondBox extends StatelessWidget{
+class SecondBox extends StatefulWidget{
 
+  MainPageController mainPageController;
+
+  SecondBox(this.mainPageController);
+
+  @override
+  State<SecondBox> createState() => _SecondBoxState();
+}
+
+class _SecondBoxState extends State<SecondBox> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -32,9 +43,21 @@ class SecondBox extends StatelessWidget{
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: 10, bottom: 20),
                       child: SvgPicture.asset('assets/pc_icon.svg', width: 160,),
-                    )
+                    ),
+                    ListTile(
+                      leading: SvgPicture.asset('assets/memory_icon.svg'),
+                      title: Text('sdsdsd'),
+                    ),
+                    ListTile(
+                      leading: SvgPicture.asset('assets/screen_icon.svg'),
+                      title: Text('sdsdsd'),
+                    ),
+                    ListTile(
+                      leading: SvgPicture.asset('assets/videocard_icon.svg'),
+                      title: Text('sdsdsd'),
+                    ),
                   ],
                 ),
               ),
@@ -63,5 +86,4 @@ class SecondBox extends StatelessWidget{
       )
     );
   }
-
 }

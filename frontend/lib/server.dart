@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 const String _adress = 'https://bfp-demo.ml';
@@ -17,3 +18,8 @@ Future<http.Response> send(String value) async {
 
   return response;
 }
+
+Future<http.Response> isolateSend(String value) async {
+  return compute(send, value);
+}
+

@@ -18,31 +18,38 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-        child: ListView(
-          children: [
-            SiteAppBar(widget.mainPageController),
-            SingleChildScrollView(
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Center(
-                    child: SizedBox(
-                      width: 1000,
-                      child: ListView(
-                        shrinkWrap: true,
-                        children: [
-                          BigGreenBox(BigGreenBoxController()),
-                          SecondBox(),
-                          NewsFeed()
-                        ],
-                      ),
-                    ),
+    return Scaffold(
+      body: Center(
+          child: ListView(
+            children: [
+              SiteAppBar(widget.mainPageController),
+              SingleChildScrollView(
+                  child: SizedBox(
+                      width: double.infinity,
+                      child: Center(
+                        child: SizedBox(
+                          width: 1000,
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: [
+                              BigGreenBox(BigGreenBoxController()),
+                              SecondBox(widget.mainPageController),
+                              NewsFeed()
+                            ],
+                          ),
+                        ),
+                      )
                   )
-                )
-            )
-          ],
-        )
+              )
+            ],
+          )
+      ),
     );
   }
 }

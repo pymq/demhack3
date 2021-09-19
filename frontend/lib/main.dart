@@ -4,10 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:demhack3_web/fingerprint_loader.dart' as FingerPrint;
 import 'package:demhack3_web/server.dart' as Server;
 
+import 'Pages/LoadingPage.dart';
 import 'Pages/main_page.dart';
 void main() {
   runApp(const MyApp());
 }
+
+
+MainPageController badPractice = MainPageController();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -22,6 +26,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         "/DebugPage":(BuildContext context) => DebugPage(),
+        "/MainPage": (BuildContext context) => MainPage(badPractice),
+        "/LoadingPage":(BuildContext context) => LoadingPage(),
       },
       home: const MyHomePage(),
     );
@@ -36,15 +42,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
-  MainPageController mainPageController = MainPageController();
   
   void initState() {
     super.initState();
     FingerPrint.getBrowserFingerPrint().then((value) {
       var s = FingerPrint.stringify(value);
-      Server.send(s).then((v) {
-        mainPageController.response = v.body;
+      Server.isolateSend(s).then((v) {
+        badPractice.response = v.body;
+        Navigator.pushReplacementNamed(context, '/MainPage');
       });
     });
   }
@@ -52,8 +57,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: MainPage(mainPageController),
-    );
+    return LoadingPage();
   }
 }
