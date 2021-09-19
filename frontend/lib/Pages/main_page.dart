@@ -26,28 +26,31 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: ListView(
-            children: [
-              SiteAppBar(widget.mainPageController),
-              SingleChildScrollView(
-                  child: SizedBox(
-                      width: double.infinity,
-                      child: Center(
-                        child: SizedBox(
-                          width: 1000,
-                          child: ListView(
-                            shrinkWrap: true,
-                            children: [
-                              BigGreenBox(widget.mainPageController),
-                              SecondBox(widget.mainPageController),
-                              NewsFeed()
-                            ],
+          child: Container(
+            color: Colors.white,
+            child: ListView(
+              children: [
+                SiteAppBar(widget.mainPageController),
+                SingleChildScrollView(
+                    child: SizedBox(
+                        width: double.infinity,
+                        child: Center(
+                          child: SizedBox(
+                            width: 1000,
+                            child: ListView(
+                              shrinkWrap: true,
+                              children: [
+                                BigGreenBox(widget.mainPageController),
+                                SecondBox(widget.mainPageController),
+                                NewsFeed()
+                              ],
+                            ),
                           ),
-                        ),
-                      )
-                  )
-              )
-            ],
+                        )
+                    )
+                )
+              ],
+            ),
           )
       ),
     );
