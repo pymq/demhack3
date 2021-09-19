@@ -78,6 +78,7 @@ type FrontendMetrics struct {
 	Apps                []DesktopApp    `json:"apps"`
 	BrowserPrivateMode  bool            `json:"browserPrivateMode"`
 	Browser             map[string]bool `json:"browser"`
+	BrowserTitle        string          `json:"browserTitle"`
 }
 
 type FontPreferences struct {

@@ -85,6 +85,8 @@ definitions:
         type: object
       browserPrivateMode:
         type: boolean
+      browserTitle:
+        type: string
       canvas:
         $ref: '#/definitions/model.Canvas'
       colorDepth:
@@ -248,6 +250,8 @@ definitions:
         type: object
       browserPrivateMode:
         type: boolean
+      browserTitle:
+        type: string
       canvas:
         $ref: '#/definitions/model.Canvas'
       colorDepth:
