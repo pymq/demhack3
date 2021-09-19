@@ -42,40 +42,42 @@ type Location struct {
 }
 
 type FrontendMetrics struct {
-	Fonts               []string        `json:"fonts"`
-	DomBlockers         interface{}     `json:"domBlockers"` // TODO
-	FontPreferences     FontPreferences `json:"fontPreferences"`
-	Audio               float64         `json:"audio"`
-	ScreenFrame         []int           `json:"screenFrame"`
-	OsCPU               interface{}     `json:"osCpu"` // TODO
-	Languages           []string        `json:"languages"`
-	ColorDepth          int             `json:"colorDepth"`
-	DeviceMemory        int             `json:"deviceMemory"`
-	ScreenResolution    []int           `json:"screenResolution"`
-	HardwareConcurrency int             `json:"hardwareConcurrency"`
-	Timezone            string          `json:"timezone"`
-	SessionStorage      bool            `json:"sessionStorage"`
-	LocalStorage        bool            `json:"localStorage"`
-	IndexedDB           bool            `json:"indexedDB"`
-	OpenDatabase        bool            `json:"openDatabase"`
-	CPUClass            interface{}     `json:"cpuClass"` // TODO
-	Platform            string          `json:"platform"`
-	Plugins             []Plugins       `json:"plugins"`
-	Canvas              Canvas          `json:"canvas"`
-	TouchSupport        TouchSupport    `json:"touchSupport"`
-	Vendor              string          `json:"vendor"`
-	VendorFlavors       []string        `json:"vendorFlavors"`
-	CookiesEnabled      bool            `json:"cookiesEnabled"`
-	ColorGamut          string          `json:"colorGamut"`
-	InvertedColors      interface{}     `json:"invertedColors"` // TODO
-	ForcedColors        bool            `json:"forcedColors"`
-	Monochrome          int             `json:"monochrome"`
-	Contrast            interface{}     `json:"contrast"` // TODO
-	ReducedMotion       bool            `json:"reducedMotion"`
-	Hdr                 interface{}     `json:"hdr"` // TODO
-	Math                Math            `json:"math"`
-	FingerprintJSHash   string          `json:"fingerprintJSHash"`
-	Apps                []DesktopApp    `json:"apps"`
+	Fonts               []string          `json:"fonts"`
+	DomBlockers         interface{}       `json:"domBlockers"` // TODO
+	FontPreferences     FontPreferences   `json:"fontPreferences"`
+	Audio               float64           `json:"audio"`
+	ScreenFrame         []int             `json:"screenFrame"`
+	OsCPU               interface{}       `json:"osCpu"` // TODO
+	Languages           []string          `json:"languages"`
+	ColorDepth          int               `json:"colorDepth"`
+	DeviceMemory        int               `json:"deviceMemory"`
+	ScreenResolution    []int             `json:"screenResolution"`
+	HardwareConcurrency int               `json:"hardwareConcurrency"`
+	Timezone            string            `json:"timezone"`
+	SessionStorage      bool              `json:"sessionStorage"`
+	LocalStorage        bool              `json:"localStorage"`
+	IndexedDB           bool              `json:"indexedDB"`
+	OpenDatabase        bool              `json:"openDatabase"`
+	CPUClass            interface{}       `json:"cpuClass"` // TODO
+	Platform            string            `json:"platform"`
+	Plugins             []Plugins         `json:"plugins"`
+	Canvas              Canvas            `json:"canvas"`
+	TouchSupport        TouchSupport      `json:"touchSupport"`
+	Vendor              string            `json:"vendor"`
+	VendorFlavors       []string          `json:"vendorFlavors"`
+	CookiesEnabled      bool              `json:"cookiesEnabled"`
+	ColorGamut          string            `json:"colorGamut"`
+	InvertedColors      interface{}       `json:"invertedColors"` // TODO
+	ForcedColors        bool              `json:"forcedColors"`
+	Monochrome          int               `json:"monochrome"`
+	Contrast            interface{}       `json:"contrast"` // TODO
+	ReducedMotion       bool              `json:"reducedMotion"`
+	Hdr                 interface{}       `json:"hdr"` // TODO
+	Math                Math              `json:"math"`
+	FingerprintJSHash   string            `json:"fingerprintJSHash"`
+	Apps                []DesktopApp      `json:"apps"`
+	BrowserPrivateMode  bool              `json:"browserPrivateMode"`
+	Browser             map[string]string `json:"browser"`
 }
 
 type FontPreferences struct {

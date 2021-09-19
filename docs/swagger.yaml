@@ -79,6 +79,12 @@ definitions:
         type: array
       audio:
         type: number
+      browser:
+        additionalProperties:
+          type: string
+        type: object
+      browserPrivateMode:
+        type: boolean
       canvas:
         $ref: '#/definitions/model.Canvas'
       colorDepth:
@@ -236,6 +242,12 @@ definitions:
         type: array
       audio:
         type: number
+      browser:
+        additionalProperties:
+          type: string
+        type: object
+      browserPrivateMode:
+        type: boolean
       canvas:
         $ref: '#/definitions/model.Canvas'
       colorDepth:
