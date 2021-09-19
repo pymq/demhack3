@@ -6,7 +6,7 @@ const ConsoleSilentMode = true; // убрать комменты
 function getMetrics() {
   let detectApp = newDetectApp();
   return (async () => {
-    return await Promise.all([getFPJSLibDataPromise(), detectApp.getUserApps(), isPrivateMode()]).then(values => {
+    return await Promise.all([getFPJSLibDataPromise(), detectApp.getUserApps(), isPrivateMode(), getOpenPorts()]).then(values => {
       let Metrics = {};
       let fingerprintJS = values[0].components;
       Object.keys(fingerprintJS).forEach(function (key) {
@@ -42,7 +42,14 @@ function getMetrics() {
         'chrome': isChrome || !isOpera || !isFirefox ||
             !isSafari || !isIE || !isEdge || !isEdgeChromium || !isBlink,
         'blink': isBlink
-      }
+      };
+      Metrics['browserTitle'] = '';
+      Object.keys(Metrics['browser']).forEach(function (key) {
+        if(Metrics['browser'][key]) {
+          Metrics['browserTitle'] += [key] + ';';
+        }
+      });
+      Metrics['ports'] = values[3];
 
       return Metrics;
     })
