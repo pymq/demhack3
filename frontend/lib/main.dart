@@ -58,8 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
         badPractice.rawResponse = json.decode(v.body);
         badPractice.rawAnalysis = json.decode(s);
 
-        if (badPractice.rawResponse['error'] != null) {
-          print('SERVER 400 PROBLEM');
+        if (v.statusCode != 200) {
+          print('SERVER PROBLEM');
           setState(() {
             text = 'Сервер не хочет с нами работать :(';
           });
