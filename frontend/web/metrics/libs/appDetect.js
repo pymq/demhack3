@@ -1,6 +1,6 @@
 // Глобальная проблема - не обработаны ошибки, если что-то пойдет не так никто не узнает)
 
-PreventAppDetection = true; // Для дебага, ничего обрабатываться не будет
+PreventAppDetection = false; // Для дебага, ничего обрабатываться не будет
 
 function debugDetectApp() {
   let startTime = new Date().getTime() / 1000;

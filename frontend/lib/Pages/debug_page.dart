@@ -51,7 +51,7 @@ class _DebugPageState extends State<DebugPage> {
           color: Colors.white,
           child: SingleChildScrollView(
             child: Center(
-              child: Text(r),
+              child: SelectableText(r),
             ),
           )
       ),
