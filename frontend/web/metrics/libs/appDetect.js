@@ -123,12 +123,6 @@ function newDetectApp() {
   DetectApp.browserFamily = BrowserFamily.Chromium;
   DetectApp.results = new Map();
 
-  let isFirefox = typeof InstallTrigger !== 'undefined';
-
-  let isSafari = /constructor/i.test(window.HTMLElement) || (function (p) {
-    return p.toString() === "[object SafariRemoteNotification]";
-  })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
-
   if (isSafari) {
     DetectApp.browserFamily = BrowserFamily.Safari
   } else if (isFirefox) {
