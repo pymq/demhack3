@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:demhack3_web/Pages/debug_page.dart';
 import 'package:demhack3_web/Pages/main_page.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +51,11 @@ class _MyHomePageState extends State<MyHomePage> {
       var s = FingerPrint.stringify(value);
       Server.isolateSend(s).then((v) {
         badPractice.response = v.body;
+        badPractice.analysis = s;
+
+        badPractice.rawResponse = json.decode(v.body);
+        badPractice.rawAnalysis = json.decode(s);
+
         Navigator.pushReplacementNamed(context, '/MainPage');
       });
     });

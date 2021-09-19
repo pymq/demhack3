@@ -54,12 +54,10 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class MainPageController extends ChangeNotifier {
-  String _response = '';
+class MainPageController {
+  String response = '';
+  Map rawResponse = {};
 
-  String get response => _response;
-  set response(String r) {
-    _response = r;
-    notifyListeners();
-  }
+  String analysis = '';
+  Map rawAnalysis = {};
 }

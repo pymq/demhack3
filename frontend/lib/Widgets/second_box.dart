@@ -48,15 +48,15 @@ class _SecondBoxState extends State<SecondBox> {
                     ),
                     ListTile(
                       leading: SvgPicture.asset('assets/memory_icon.svg'),
-                      title: Text('sdsdsd'),
+                      title: Text(widget.mainPageController.rawAnalysis['deviceMemory'].toString() + ' Гб'),
                     ),
                     ListTile(
                       leading: SvgPicture.asset('assets/screen_icon.svg'),
-                      title: Text('sdsdsd'),
+                      title: Text(widget.mainPageController.rawAnalysis['screenResolution'][0].toString() + 'х' + widget.mainPageController.rawAnalysis['screenResolution'][1].toString() ),
                     ),
                     ListTile(
                       leading: SvgPicture.asset('assets/videocard_icon.svg'),
-                      title: Text('sdsdsd'),
+                      title: Text('агде поле...'),
                     ),
                   ],
                 ),
