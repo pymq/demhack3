@@ -81,7 +81,7 @@ definitions:
         type: number
       browser:
         additionalProperties:
-          type: string
+          type: boolean
         type: object
       browserPrivateMode:
         type: boolean
@@ -244,7 +244,7 @@ definitions:
         type: number
       browser:
         additionalProperties:
-          type: string
+          type: boolean
         type: object
       browserPrivateMode:
         type: boolean
