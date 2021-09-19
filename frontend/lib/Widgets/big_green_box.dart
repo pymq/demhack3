@@ -14,11 +14,15 @@ class BigGreenBox extends StatefulWidget{
 class _BigGreenBoxState extends State<BigGreenBox> {
 
   String name = '';
+  String bname = '';
+  bool isH = false;
 
   void initState() {
     super.initState();
 
     name = widget.controller.rawResponse['Fingerprint']['UserIdHuman'];
+    bname = widget.controller.rawResponse['Fingerprint']['UserId'];
+    isH = widget.controller.rawResponse['History'].length != 0;
   }
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,15 @@ class _BigGreenBoxState extends State<BigGreenBox> {
             Container(
               margin: EdgeInsets.all(40),
               alignment: Alignment.topLeft,
-              child: SelectableText('Ваш уникальный идентификатор: \n' + name, style: Consts.logoTextStyle,)
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Ваш уникальный идентификатор: \n', style: Consts.logoTextStyle,),
+                  SelectableText(name, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 30, color: isH? Colors.red: Colors.green),),
+                  SelectableText(bname, style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18, color: Colors.grey),)
+                ],
+              )
             ),
             Container(
                 margin: EdgeInsets.all(40),
