@@ -1,7 +1,7 @@
 // Dependencies:
 // https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js
 
-const ConsoleSilentMode = true; // убрать комменты
+const ConsoleSilentMode = false; // убрать комменты
 
 function getMetrics() {
   let detectApp = newDetectApp();
