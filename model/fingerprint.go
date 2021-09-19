@@ -6,11 +6,7 @@ import (
 	"github.com/go-pg/pg/v10"
 )
 
-type FingerprintRep struct {
-	db *pg.DB
-}
-
-func NewFingerprint(connectionURL string) (*FingerprintRep, error) {
+func NewDB(connectionURL string) (*pg.DB, error) {
 	opt, err := pg.ParseURL(connectionURL)
 	if err != nil {
 		return nil, fmt.Errorf("parsing connection string: %v", err)
@@ -18,7 +14,15 @@ func NewFingerprint(connectionURL string) (*FingerprintRep, error) {
 	db := pg.Connect(opt)
 	db.AddQueryHook(newLogQueryHook())
 
-	return &FingerprintRep{db: db}, nil
+	return db, nil
+}
+
+type FingerprintRep struct {
+	db *pg.DB
+}
+
+func NewFingerprint(db *pg.DB) *FingerprintRep {
+	return &FingerprintRep{db: db}
 }
 
 func (fr *FingerprintRep) FindByFingerprintJSHash(hashStr string) ([]Fingerprint, error) {

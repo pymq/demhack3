@@ -4,6 +4,7 @@ import (
 	"context"
 	"embed"
 	"io/fs"
+	"math/rand"
 	"os"
 	"os/signal"
 	"time"
@@ -41,6 +42,8 @@ func FrontendStatic() fs.FS {
 }
 
 func main() {
+	rand.Seed(time.Now().UnixNano())
+
 	cfg, err := conf.ReadConfig()
 	if err != nil {
 		log.Fatalf("error loading config file: %s", err)
@@ -53,12 +56,19 @@ func main() {
 	}
 	defer geoDb.Close()
 
-	fpRep, err := model.NewFingerprint(cfg.DBConnectionString)
+	db, err := model.NewDB(cfg.DBConnectionString)
 	if err != nil {
 		log.Panicf("init db: %v", err)
 	}
+	defer db.Close()
 
-	handler := api.NewHandler(fpRep, geoDb)
+	fpRep := model.NewFingerprint(db)
+	wordsRep, err := model.NewWordsRepository(db)
+	if err != nil {
+		log.Panicf("init words: %v", err)
+	}
+
+	handler := api.NewHandler(fpRep, wordsRep, geoDb)
 	handler.SetupAPI(cfg)
 	handler.SetupFrontend(FrontendStatic())
 

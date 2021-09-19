@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net"
 	"net/http"
 	"sort"
@@ -50,7 +51,7 @@ func (h *Handler) ProcessFingerprint(c echo.Context) (err error) {
 		}
 	} else {
 		resp.History = make([]model.Fingerprint, 0)
-		userIdHuman, err := generateUserIdHuman()
+		userIdHuman, err := h.generateUserIdHuman()
 		if err != nil {
 			return HandleInternalError(c, err)
 		}
@@ -115,9 +116,17 @@ func generateUserId() string {
 	return uuid.New().String()
 }
 
-func generateUserIdHuman() (string, error) {
-	// TODO: implement real human user id
-	return generateUserId(), nil
+func (h *Handler) generateUserIdHuman() (string, error) {
+	noun, err := h.wordsRep.GetRandomNounAndIncrementViews()
+	if err != nil {
+		return "", err
+	}
+	adj, err := h.wordsRep.GetRandomAdjective()
+	if err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("%s %s", adj.Word, noun.Word), nil
 }
 
 func findCountryISO(record *geoip2.City) string {

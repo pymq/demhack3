@@ -21,13 +21,14 @@ import (
 )
 
 type Handler struct {
-	echo  *echo.Echo
-	fpRep *model.FingerprintRep
-	geoDb *geoip2.Reader
+	echo     *echo.Echo
+	fpRep    *model.FingerprintRep
+	geoDb    *geoip2.Reader
+	wordsRep model.WordsRepository
 }
 
-func NewHandler(fpRep *model.FingerprintRep, geoDb *geoip2.Reader) *Handler {
-	return &Handler{fpRep: fpRep, geoDb: geoDb}
+func NewHandler(fpRep *model.FingerprintRep, wordsRep model.WordsRepository, geoDb *geoip2.Reader) *Handler {
+	return &Handler{fpRep: fpRep, wordsRep: wordsRep, geoDb: geoDb}
 }
 
 func (h *Handler) SetupAPI(cfg *conf.Config) {
