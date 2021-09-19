@@ -1,6 +1,6 @@
 // Глобальная проблема - не обработаны ошибки, если что-то пойдет не так никто не узнает)
 
-PreventAppDetection = true; // Для дебага, ничего обрабатываться не будет
+PreventAppDetection = false; // Для дебага, ничего обрабатываться не будет
 
 function debugDetectApp() {
   let startTime = new Date().getTime() / 1000;
@@ -138,9 +138,7 @@ let DetectApp = {
   browserFamily: BrowserFamily.Chromium,
   results: new Map(),
   getUserApps: function () {
-    if (this.browserFamily !== BrowserFamily.TorBrowser) {
-      createAdditionalWindow()
-    }
+    createAdditionalWindow()
 
     if (handler === null || PreventAppDetection) {
       console.log("can't create new window");
