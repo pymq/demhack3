@@ -38,7 +38,7 @@ class _MainPageState extends State<MainPage> {
                           child: ListView(
                             shrinkWrap: true,
                             children: [
-                              BigGreenBox(BigGreenBoxController()),
+                              BigGreenBox(widget.mainPageController),
                               SecondBox(widget.mainPageController),
                               NewsFeed()
                             ],

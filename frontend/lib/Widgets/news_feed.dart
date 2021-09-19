@@ -43,54 +43,21 @@ class _NewsFeedState extends State<NewsFeed> {
               children: [
                 SizedBox(
                     height: 4,
-                    child: ListView(
+                    child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      children: [
-                        Padding(
+                      itemCount: 4,
+                      itemBuilder: (context, i) {
+                        return Padding(
                           padding: EdgeInsets.symmetric(horizontal: 5),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(100),
-                            child: AnimatedContainer(
-                              color: 0 == counter? Colors.black: Colors.grey,
+                            child: Container(
+                              color: i == counter? Colors.black: Colors.grey,
                               width: 40,
-                              duration: Duration(milliseconds: 500),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: AnimatedContainer(
-                              color: 1 == counter? Colors.black: Colors.grey,
-                              width: 40,
-                              duration: Duration(milliseconds: 500),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: AnimatedContainer(
-                              color: 2 == counter? Colors.black: Colors.grey,
-                              width: 40,
-                              duration: Duration(milliseconds: 500),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 5),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: AnimatedContainer(
-                              color: 3 == counter? Colors.black: Colors.grey,
-                              width: 40,
-                              duration: Duration(milliseconds: 500),
-                            ),
-                          ),
-                        )
-                      ],
+                        );
+                      },
                     )
                 ),
                 Padding(

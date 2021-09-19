@@ -1,9 +1,10 @@
+import 'package:demhack3_web/Pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:demhack3_web/consts.dart' as Consts;
 
 class BigGreenBox extends StatefulWidget{
 
-  BigGreenBoxController controller;
+  MainPageController controller;
 
   BigGreenBox(this.controller);
   @override
@@ -17,11 +18,7 @@ class _BigGreenBoxState extends State<BigGreenBox> {
   void initState() {
     super.initState();
 
-    widget.controller.addListener(() {
-      setState(() {
-        name = widget.controller.name;
-      });
-    });
+    name = widget.controller.rawResponse['Fingerprint']['UserIdHuman'];
   }
   @override
   Widget build(BuildContext context) {
@@ -61,23 +58,5 @@ class _BigGreenBoxState extends State<BigGreenBox> {
         )
       ),
     );
-  }
-}
-
-class BigGreenBoxController extends ChangeNotifier {
-  bool _isLoaded = false;
-  String _name = '';
-
-  bool get isLoaded => _isLoaded;
-  String get name => _name;
-
-  set isLoaded(bool a) {
-    _isLoaded = a;
-    notifyListeners();
-  }
-
-  set name(String a) {
-    name = a;
-    notifyListeners();
   }
 }

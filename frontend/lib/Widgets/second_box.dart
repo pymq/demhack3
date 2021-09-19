@@ -2,6 +2,9 @@ import 'package:demhack3_web/Pages/main_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mapbox_gl/mapbox_gl.dart';
+
+import 'package:demhack3_web/consts.dart' as Consts;
 
 class SecondBox extends StatefulWidget{
 
@@ -56,7 +59,7 @@ class _SecondBoxState extends State<SecondBox> {
                     ),
                     ListTile(
                       leading: SvgPicture.asset('assets/videocard_icon.svg'),
-                      title: Text('агде поле...'),
+                      title: Text('агде...'),
                     ),
                   ],
                 ),
@@ -78,7 +81,29 @@ class _SecondBoxState extends State<SecondBox> {
                     offset: Offset(0, 12.35),
                     color: Color(0xF0B225A)
                   )]
-                )
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+                      height: 300,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: MapboxMap(
+                          accessToken: Consts.map_access_token,
+                          styleString: Consts.map_styleString,
+                          initialCameraPosition: CameraPosition(
+                            zoom: 11.0,
+                            target: LatLng(
+                                double.parse(widget.mainPageController.rawResponse['Fingerprint']['Metrics']['Location']['lat'].toString()),
+                                double.parse(widget.mainPageController.rawResponse['Fingerprint']['Metrics']['Location']['long'].toString())
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             )
           ],
