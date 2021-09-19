@@ -22,7 +22,7 @@ class _TableWidgetState extends State<TableWidget> {
   List<TableRow> generateRow(Map v1) {
     List<TableRow> t = [];
     for(int i = 0; i < v1.length; i++) {
-      if (v1.keys.elementAt(i) != 'canvas') {
+      if (v1.keys.elementAt(i) != 'canvas' && v1.values.elementAt(i) != null) {
         t.add(TableRow(
             children: [
               Text(v1.keys.elementAt(i).toString()),
