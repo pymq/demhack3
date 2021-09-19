@@ -32,6 +32,17 @@ func (fr *FingerprintRep) FindByFingerprintJSHash(hashStr string) ([]Fingerprint
 	return fps, err
 }
 
+func (fr *FingerprintRep) FindBy(ip, platform, timezone string) ([]Fingerprint, error) {
+	var fps []Fingerprint
+	err := fr.db.Model(&fps).
+		Where(fmt.Sprintf(`metrics -> 'IP' = '"%s"'`, ip)).
+		Where(fmt.Sprintf(`metrics -> 'platform' = '"%s"'`, platform)).
+		Where(fmt.Sprintf(`metrics -> 'timezone' = '"%s"'`, timezone)).
+		Select()
+
+	return fps, err
+}
+
 func (fr *FingerprintRep) InsertFp(fp Fingerprint) error {
 	_, err := fr.db.Model(&fp).Insert()
 	return err

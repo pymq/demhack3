@@ -36,19 +36,22 @@ func (h *Handler) ProcessFingerprint(c echo.Context) (err error) {
 		return c.JSON(http.StatusBadRequest, ErrorMessage(err.Error()))
 	}
 
-	fps, err := h.fpRep.FindByFingerprintJSHash(req.FingerprintJSHash)
+	resp := ProcessFingerprintResponse{}
+	resp.Fingerprint.CreatedAt = time.Now()
+	resp.Fingerprint.Metrics = model.Metrics{
+		FrontendMetrics: req,
+		BackendMetrics:  h.enrichBackendMetrics(c, req),
+	}
+
+	fps, err := h.findSimilarFps(resp.Fingerprint)
 	if err != nil {
 		return HandleInternalError(c, err)
 	}
 
-	resp := ProcessFingerprintResponse{}
-
 	if len(fps) > 0 {
 		resp.History = fps
-		resp.Fingerprint = model.Fingerprint{
-			UserId:      fps[0].UserId,
-			UserIdHuman: fps[0].UserIdHuman,
-		}
+		resp.Fingerprint.UserId = fps[0].UserId
+		resp.Fingerprint.UserIdHuman = fps[0].UserIdHuman
 	} else {
 		resp.History = make([]model.Fingerprint, 0)
 		userIdHuman, err := h.generateUserIdHuman()
@@ -56,16 +59,8 @@ func (h *Handler) ProcessFingerprint(c echo.Context) (err error) {
 			return HandleInternalError(c, err)
 		}
 
-		resp.Fingerprint = model.Fingerprint{
-			UserId:      generateUserId(),
-			UserIdHuman: userIdHuman,
-		}
-	}
-
-	resp.Fingerprint.CreatedAt = time.Now()
-	resp.Fingerprint.Metrics = model.Metrics{
-		FrontendMetrics: req,
-		BackendMetrics:  h.enrichBackendMetrics(c, req),
+		resp.Fingerprint.UserId = generateUserId()
+		resp.Fingerprint.UserIdHuman = userIdHuman
 	}
 
 	sort.Slice(resp.History, func(i, j int) bool {
@@ -156,4 +151,22 @@ func findLocalizedName(record map[string]string) string {
 	}
 
 	return ""
+}
+
+func (h *Handler) findSimilarFps(fp model.Fingerprint) ([]model.Fingerprint, error) {
+	fps, err := h.fpRep.FindByFingerprintJSHash(fp.Metrics.FingerprintJSHash)
+	if err != nil {
+		return nil, err
+	} else if len(fps) > 0 {
+		return fps, nil
+	}
+
+	fps, err = h.fpRep.FindBy(fp.Metrics.IP, fp.Metrics.Platform, fp.Metrics.Timezone)
+	if err != nil {
+		return nil, err
+	} else if len(fps) > 0 {
+		return fps, nil
+	}
+
+	return nil, nil
 }
