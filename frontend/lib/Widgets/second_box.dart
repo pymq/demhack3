@@ -52,8 +52,8 @@ class _SecondBoxState extends State<SecondBox> {
                     ListTile(
                       leading: SvgPicture.asset('assets/memory_icon.svg'),
                       title: Text((widget.mainPageController.rawAnalysis['deviceMemory'].toString() != 'null'?
-                      widget.mainPageController.rawAnalysis['deviceMemory'].toString():'Заблокировано браузером'
-                      )+ ' Гб'),
+                      widget.mainPageController.rawAnalysis['deviceMemory'].toString() + ' Гб':'Заблокировано браузером'
+                      )),
                     ),
                     ListTile(
                       leading: SvgPicture.asset('assets/screen_icon.svg'),
