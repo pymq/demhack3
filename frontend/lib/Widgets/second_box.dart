@@ -46,7 +46,7 @@ class _SecondBoxState extends State<SecondBox> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 10, bottom: 40),
+                      padding: EdgeInsets.only(top: 60, bottom: 60),
                       child: SvgPicture.asset('assets/pc_icon.svg', width: 160,),
                     ),
                     ListTile(
@@ -103,7 +103,24 @@ class _SecondBoxState extends State<SecondBox> {
                           ),
                         ),
                       ),
-                    )
+                    ),
+                    Column(
+                      children: [
+                        ListTile(
+                          leading: SvgPicture.asset('assets/ethernet_icon.svg'),
+                          title: Text('IP: ' + widget.mainPageController.rawResponse['Fingerprint']['Metrics']['IP'].toString()),
+                        ),
+                        ListTile(
+                          leading: SvgPicture.asset('assets/loc_name.svg'),
+                          title: Text('Местоположение: ' + widget.mainPageController.rawResponse['Fingerprint']['Metrics']['Location']['city'].toString() ),
+                        ),
+                        ListTile(
+                          leading: SvgPicture.asset('assets/security.svg'),
+                          title: Text('Инкогнито: ' + (widget.mainPageController.rawResponse['Fingerprint']['Metrics']['Anonymity']['isAnonymous'].toString() == 'true'?
+                          'Да':'Нет')),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

@@ -25,7 +25,10 @@ class _TableWidgetState extends State<TableWidget> {
       if (v1.keys.elementAt(i) != 'canvas' && v1.values.elementAt(i) != null) {
         t.add(TableRow(
             children: [
-              SelectableText(v1.keys.elementAt(i).toString()),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: SelectableText(v1.keys.elementAt(i).toString()),
+              ),
               SelectableText(v1.values.elementAt(i).toString()),
             ]
         ));
@@ -92,7 +95,8 @@ class _TableWidgetState extends State<TableWidget> {
                 }
               );
             },
-            child: Text('Открой'))
+            child: Text(isActivated?  'Закрыть':'Развернуть')
+        )
       ],
     );
   }

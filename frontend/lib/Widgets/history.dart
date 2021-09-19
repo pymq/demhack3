@@ -93,7 +93,11 @@ class _HistoryState extends State<History> {
                   )
                 ],
               )
-          ): Text('Сеансов нет', style: Consts.logoTextStyle,),
+          ): Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: Text('Сеансов нет', style: Consts.logoTextStyle,),
+          )
       ),
     );
   }
