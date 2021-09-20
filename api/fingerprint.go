@@ -49,9 +49,13 @@ func (h *Handler) ProcessFingerprint(c echo.Context) (err error) {
 	}
 
 	if len(fps) > 0 {
-		resp.History = fps
+		// TODO: check if fps has different userId
 		resp.Fingerprint.UserId = fps[0].UserId
 		resp.Fingerprint.UserIdHuman = fps[0].UserIdHuman
+		resp.History, err = h.fpRep.SelectAllByID(resp.Fingerprint.UserId)
+		if err != nil {
+			return HandleInternalError(c, err)
+		}
 	} else {
 		resp.History = make([]model.Fingerprint, 0)
 		userIdHuman, err := h.generateUserIdHuman()

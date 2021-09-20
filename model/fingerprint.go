@@ -43,6 +43,15 @@ func (fr *FingerprintRep) FindBy(ip, platform, timezone string) ([]Fingerprint, 
 	return fps, err
 }
 
+func (fr *FingerprintRep) SelectAllByID(userId string) ([]Fingerprint, error) {
+	var fps []Fingerprint
+	err := fr.db.Model(&fps).
+		Where("user_id = ?", userId).
+		Select()
+
+	return fps, err
+}
+
 func (fr *FingerprintRep) InsertFp(fp Fingerprint) error {
 	_, err := fr.db.Model(&fp).Insert()
 	return err
