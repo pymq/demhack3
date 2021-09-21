@@ -67,15 +67,15 @@
 <a href="https://incolumitas.com/2021/01/10/browser-based-port-scanning/">Описание концепции</a>
 
 ### Сканирование расширений
-Изначальная идея:
+Основная идея:
 1. По id расширения, если знать какой-то файл, который в нем точно есть можно получить страницу.
 2. Парсим id из стора
-3. Качаем расишрение, ищем манифест и ищем в нем статичный файл
+3. Качаем расширение как .crx архив, открываем из него manifest.json и ищем в нем статичный файл внутри web_accessible_resources
 4. Делаем fetch chrome-extension://EXTENSION_ID/EXTENSION_STATIC_FILE если есть ответ - победа
 
-Например для adblock
+Например для Google Переводчик
 ```
-fetch('chrome-extension://cfhdojbkjhnklbpkdaibdccddilifdb/options.html').then(
+fetch('chrome-extension://aapbdbdomjkkjkaonfhkkikfgjllcleb/options.html').then(
   (response) => {
       console.log(response);
       if (response.ok) {
