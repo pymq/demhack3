@@ -45,6 +45,8 @@
 ## Метрики
 Сами скрипты можно найти в **frontend/web/metrics/**
 
+У метрик есть свой <a href="https://github.com/GrigoryKrasnochub/js_browser_fingerprint_attributes">репозиторий</a>, код и метрики слегка доработаны
+
 ### Сбор общей информации
 Была взята готовая либа, которая уже хорошо справляется с поставленной задачей <a href="https://github.com/fingerprintjs/fingerprintjs">fingerprintjs</a>
 Базовые но довольно тщательно собранные метрики, что-то не собирается, но пользователя идентифицировать позволяет
